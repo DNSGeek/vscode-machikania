@@ -49,10 +49,7 @@ export class KMBasicCompletionProvider
   }
 
   private buildItem(kw: KMBasicKeyword): vscode.CompletionItem {
-    const item = new vscode.CompletionItem(
-      labelFor(kw),
-      this.kindOf(kw.kind),
-    );
+    const item = new vscode.CompletionItem(labelFor(kw), this.kindOf(kw.kind));
 
     item.insertText = new vscode.SnippetString(insertTextFor(kw));
     item.documentation = new vscode.MarkdownString(renderKeywordMarkdown(kw));

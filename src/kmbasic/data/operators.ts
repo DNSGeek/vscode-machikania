@@ -30,8 +30,7 @@ export const OPERATOR_KEYWORDS: KMBasicKeywordList = [
     category: "Operators",
     valueType: "integer",
     syntax: ["x OR y", "x# OR y#", "x$ OR y$"],
-    summary:
-      "Bitwise OR on integers, logical OR on floats and on strings.",
+    summary: "Bitwise OR on integers, logical OR on floats and on strings.",
     notes: [
       'String: "0" only when both operands start with "0", otherwise "1". Added in KM-1512.',
     ],

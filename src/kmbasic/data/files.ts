@@ -207,7 +207,7 @@ export const FILE_KEYWORDS: KMBasicKeywordList = [
     notes: ["y$ searches a directory other than the current one."],
     example: [
       'F$=FFIND$("*.BAS")',
-      'DO WHILE LEN(F$)',
+      "DO WHILE LEN(F$)",
       "  PRINT F$",
       "  F$=FFIND$()",
       "LOOP",
@@ -226,10 +226,9 @@ export const FILE_KEYWORDS: KMBasicKeywordList = [
       "1: creation date and time, packed.",
       "3: attribute flags. bit 0 read only, bit 1 hidden, bit 2 system, bit 4 directory, bit 5 archive.",
     ],
-    example: [
-      'F$=FFIND$("*.BAS")',
-      'PRINT F$;" ";FINFO(0);" bytes"',
-    ].join("\n"),
+    example: ['F$=FFIND$("*.BAS")', 'PRINT F$;" ";FINFO(0);" bytes"'].join(
+      "\n",
+    ),
     snippet: "FINFO(${1:0})",
   },
   {

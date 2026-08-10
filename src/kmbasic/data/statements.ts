@@ -181,12 +181,9 @@ export const STATEMENT_KEYWORDS: KMBasicKeywordList = [
       'A local string declared with VAR is destroyed by RETURN, so return it as A$+"" to force a copy.',
       "Since ver 1.2 RETURN may be used inside a FOR, DO or WHILE loop.",
     ],
-    example: [
-      "LABEL TEST",
-      "  VAR A",
-      '  A$="result"',
-      'RETURN A$+""',
-    ].join("\n"),
+    example: ["LABEL TEST", "  VAR A", '  A$="result"', 'RETURN A$+""'].join(
+      "\n",
+    ),
   },
   {
     name: "LABEL",
@@ -446,10 +443,7 @@ export const STATEMENT_KEYWORDS: KMBasicKeywordList = [
     valueType: "none",
     syntax: ["WIDTH x[,y]"],
     summary: "Sets the character display width.",
-    notes: [
-      "Type P: 1-40, or 1-60 with an ILI9488 LCD.",
-      "Type PU: 42 or 80.",
-    ],
+    notes: ["Type P: 1-40, or 1-60 with an ILI9488 LCD.", "Type PU: 42 or 80."],
     snippet: "WIDTH ${1:40}",
   },
   {
@@ -573,10 +567,7 @@ export const STATEMENT_KEYWORDS: KMBasicKeywordList = [
     kind: "statement",
     category: "Interrupts",
     valueType: "none",
-    syntax: [
-      "INTERRUPT xxx,yyy[,z1[,z2 ...]]",
-      "INTERRUPT STOP xxx",
-    ],
+    syntax: ["INTERRUPT xxx,yyy[,z1[,z2 ...]]", "INTERRUPT STOP xxx"],
     summary:
       "Attaches a subroutine to an interrupt source. Extra values become the subroutine's ARGS().",
     notes: [

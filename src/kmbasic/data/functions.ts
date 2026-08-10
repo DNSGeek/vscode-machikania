@@ -255,10 +255,7 @@ export const FUNCTION_KEYWORDS: KMBasicKeywordList = [
     notes: [
       "KEYUP 1, KEYDOWN 2, KEYLEFT 4, KEYRIGHT 8, KEYSTART 16, KEYFIRE 32.",
     ],
-    example: [
-      "IF KEYS(1) THEN Y=Y-1",
-      "IF KEYS(2) THEN Y=Y+1",
-    ].join("\n"),
+    example: ["IF KEYS(1) THEN Y=Y-1", "IF KEYS(2) THEN Y=Y+1"].join("\n"),
     snippet: "KEYS(${1:63})",
   },
   {
@@ -284,10 +281,9 @@ export const FUNCTION_KEYWORDS: KMBasicKeywordList = [
       "bits 8-15 virtual key code.",
       "bits 16-23 modifier state, high to low: 0, CAPSLK, NUMLK, SCRLK, Win, ALT, CTRL, SHIFT.",
     ],
-    example: [
-      "K=READKEY()",
-      "IF K AND $FF THEN PRINT CHR$(K AND $FF);",
-    ].join("\n"),
+    example: ["K=READKEY()", "IF K AND $FF THEN PRINT CHR$(K AND $FF);"].join(
+      "\n",
+    ),
     snippet: "READKEY()",
     variants: ["Keyboard"],
   },
@@ -298,11 +294,7 @@ export const FUNCTION_KEYWORDS: KMBasicKeywordList = [
     valueType: "integer",
     syntax: ["MUSIC()"],
     summary: "Number of BGM notes still queued to play.",
-    example: [
-      "DO WHILE MUSIC()>16",
-      "  IDLE",
-      "LOOP",
-    ].join("\n"),
+    example: ["DO WHILE MUSIC()>16", "  IDLE", "LOOP"].join("\n"),
     snippet: "MUSIC()",
   },
   {
@@ -571,7 +563,7 @@ export const FUNCTION_KEYWORDS: KMBasicKeywordList = [
     valueType: "string",
     syntax: ["CHR$(x)"],
     summary: "The character with code x.",
-    notes: ['Use CHR$($22) to embed a double quote in a string.'],
+    notes: ["Use CHR$($22) to embed a double quote in a string."],
     example: ['PRINT "He said "+CHR$($22)+"hi"+CHR$($22)'].join("\n"),
     snippet: "CHR$(${1:65})",
   },
@@ -592,7 +584,7 @@ export const FUNCTION_KEYWORDS: KMBasicKeywordList = [
     syntax: ["HEX$(x [,y])"],
     summary:
       "An integer as a hexadecimal string, padded to y bytes when y is given.",
-    example: ['PRINT HEX$(255,2)   REM 00FF'].join("\n"),
+    example: ["PRINT HEX$(255,2)   REM 00FF"].join("\n"),
     snippet: "HEX$(${1:x})",
   },
   {

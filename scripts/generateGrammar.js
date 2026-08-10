@@ -77,7 +77,8 @@ const grammar = {
         },
         {
           name: "constant.numeric.float.kmbasic",
-          match: "\\b[0-9]+\\.[0-9]*([eE][-+]?[0-9]+)?\\b|\\b[0-9]+[eE][-+]?[0-9]+\\b",
+          match:
+            "\\b[0-9]+\\.[0-9]*([eE][-+]?[0-9]+)?\\b|\\b[0-9]+[eE][-+]?[0-9]+\\b",
         },
         {
           name: "constant.numeric.integer.kmbasic",

@@ -101,7 +101,9 @@ export const IO_KEYWORDS: KMBasicKeywordList = [
     syntax: ["PWM x[,y[,z]]"],
     summary:
       "PWM output. x is the duty ratio 0 to 1000, y the frequency in Hz (6 to 95454, default 1000), z the channel PWM1 to PWM3.",
-    notes: ["PWM4 to PWM9 are available since KM-1511, configured in the INI file."],
+    notes: [
+      "PWM4 to PWM9 are available since KM-1511, configured in the INI file.",
+    ],
     example: ["PWM 500,1000,1   REM 50 percent at 1 kHz on PWM1"].join("\n"),
     snippet: "PWM ${1:500},${2:1000}",
   },
@@ -133,11 +135,9 @@ export const IO_KEYWORDS: KMBasicKeywordList = [
     notes: [
       "With 8 bit plus parity, a parity error returns a value of $100 or more.",
     ],
-    example: [
-      "DO WHILE SERIALIN(1)",
-      "  PRINT CHR$(SERIALIN());",
-      "LOOP",
-    ].join("\n"),
+    example: ["DO WHILE SERIALIN(1)", "  PRINT CHR$(SERIALIN());", "LOOP"].join(
+      "\n",
+    ),
     snippet: "SERIALIN()",
   },
   {
@@ -178,8 +178,7 @@ export const IO_KEYWORDS: KMBasicKeywordList = [
     category: "I2C",
     valueType: "integer",
     syntax: ["I2CREAD(x[,y[,z[, ...]]])"],
-    summary:
-      "Sends the optional bytes to address x then reads one byte back.",
+    summary: "Sends the optional bytes to address x then reads one byte back.",
     snippet: "I2CREAD(${1:$48})",
   },
   {
@@ -209,10 +208,9 @@ export const IO_KEYWORDS: KMBasicKeywordList = [
     valueType: "integer",
     syntax: ["I2CERROR()"],
     summary: "Non-zero when the last I2C transfer failed.",
-    example: [
-      "I2CWRITE $48,$01",
-      'IF I2CERROR() THEN PRINT "I2C failed"',
-    ].join("\n"),
+    example: ["I2CWRITE $48,$01", 'IF I2CERROR() THEN PRINT "I2C failed"'].join(
+      "\n",
+    ),
     snippet: "I2CERROR()",
   },
 

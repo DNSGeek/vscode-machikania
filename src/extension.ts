@@ -19,7 +19,10 @@ export function activate(context: vscode.ExtensionContext): void {
   );
 
   context.subscriptions.push(
-    vscode.languages.registerHoverProvider(LANGUAGE, new KMBasicHoverProvider()),
+    vscode.languages.registerHoverProvider(
+      LANGUAGE,
+      new KMBasicHoverProvider(),
+    ),
   );
 
   context.subscriptions.push(

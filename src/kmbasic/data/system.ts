@@ -77,9 +77,10 @@ export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
       "The class is loaded from classname.BAS in the current directory, or from \\LIB\\classname\\classname.BAS.",
       "Subdirectories PICO2, TYPEPU and TYPEPU/PICO2 let one library ship per-target versions.",
     ],
-    example: ["USECLASS WGET", 'PRINT WGET::FORSTRING$("https://machikania.net/")'].join(
-      "\n",
-    ),
+    example: [
+      "USECLASS WGET",
+      'PRINT WGET::FORSTRING$("https://machikania.net/")',
+    ].join("\n"),
     snippet: "USECLASS ${1:CLASSNAME}",
   },
   {
@@ -103,11 +104,7 @@ export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
     notes: [
       "There is no destructor. String and array fields inside an object are not freed by DELETE, so free them in a method first.",
     ],
-    example: [
-      "O=NEW(CLASS1)",
-      "O.DSTRCT()",
-      "DELETE O",
-    ].join("\n"),
+    example: ["O=NEW(CLASS1)", "O.DSTRCT()", "DELETE O"].join("\n"),
     snippet: "DELETE ${1:O}",
   },
   {
@@ -132,10 +129,7 @@ export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
     ],
     summary:
       "Declares instance fields in a class file. PUBLIC is the default. Add $ for a string field, () for an array.",
-    example: [
-      "FIELD PUBLIC TEST1,TEST2",
-      "FIELD PRIVATE TEST3",
-    ].join("\n"),
+    example: ["FIELD PUBLIC TEST1,TEST2", "FIELD PRIVATE TEST3"].join("\n"),
     snippet: "FIELD ${1|PUBLIC,PRIVATE|} ${2:NAME}",
   },
   {
@@ -188,7 +182,8 @@ export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
     category: "Real-time clock",
     valueType: "none",
     syntax: ["SETTIME x$"],
-    summary: "Sets the clock from an ISO-8601 string such as 2026-08-09T13:00:00.",
+    summary:
+      "Sets the clock from an ISO-8601 string such as 2026-08-09T13:00:00.",
     example: ['SETTIME "2026-08-09T13:00:00"'].join("\n"),
     snippet: 'SETTIME "${1:2026-01-01T00:00:00}"',
   },
@@ -308,10 +303,7 @@ export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
       "Receives up to y bytes into buffer x. The function form returns the byte count.",
     alsoA: "function",
     variants: ["WiFi"],
-    example: [
-      "DIM B(64)",
-      "I=TCPRECEIVE(B,256)",
-    ].join("\n"),
+    example: ["DIM B(64)", "I=TCPRECEIVE(B,256)"].join("\n"),
     snippet: "TCPRECEIVE ${1:buffer},${2:256}",
   },
   {

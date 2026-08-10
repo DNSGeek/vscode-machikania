@@ -23,11 +23,7 @@ export type KMBasicKind =
  * everywhere.
  */
 export type KMBasicVariant =
-  | "TypeP"
-  | "TypePU"
-  | "WiFi"
-  | "RP2350"
-  | "Keyboard";
+  "TypeP" | "TypePU" | "WiFi" | "RP2350" | "Keyboard";
 
 /**
  * KM-BASIC has three value types, distinguished by a suffix on the name.
