@@ -54,13 +54,7 @@ function keywordLines(group, names, width = 68) {
   return lines.join("\n");
 }
 
-const CONTROL = new Set([
-  "IF",
-  "THEN",
-  "ELSE",
-  "ELSEIF",
-  "ENDIF",
-]);
+const CONTROL = new Set(["IF", "THEN", "ELSE", "ELSEIF", "ENDIF"]);
 
 const REPEAT = new Set([
   "DO",
