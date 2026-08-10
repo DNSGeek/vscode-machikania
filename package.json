@@ -2,9 +2,13 @@
   "name": "vscode-kmbasic",
   "displayName": "KM-BASIC (MachiKania)",
   "description": "Language support for MachiKania KM-BASIC on the Raspberry Pi Pico",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DNSGeek/vscode-machikania"
+  },
   "version": "0.1.0",
-  "publisher": "CHANGEME",
-  "license": "MIT",
+  "publisher": "DNSGeek",
+  "license": "GPL v2",
   "engines": {
     "vscode": "^1.75.0"
   },
