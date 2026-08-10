@@ -1,0 +1,63 @@
+{
+  "name": "vscode-kmbasic",
+  "displayName": "KM-BASIC (MachiKania)",
+  "description": "Language support for MachiKania KM-BASIC on the Raspberry Pi Pico",
+  "version": "0.1.0",
+  "publisher": "CHANGEME",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "kmbasic",
+    "machikania",
+    "basic",
+    "rp2040",
+    "pico"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "kmbasic",
+        "aliases": [
+          "KM-BASIC",
+          "MachiKania BASIC",
+          "kmbasic"
+        ],
+        "extensions": [
+          ".bas"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kmbasic",
+        "scopeName": "source.kmbasic",
+        "path": "./syntaxes/kmbasic.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "kmbasic.showKeywordCount",
+        "title": "KM-BASIC: Show Keyword Count"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "grammar": "npm run compile && node scripts/generateGrammar.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.4.0"
+  }
+}

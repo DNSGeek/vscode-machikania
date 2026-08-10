@@ -1,0 +1,131 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "KM-BASIC",
+  "scopeName": "source.kmbasic",
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#string"
+    },
+    {
+      "include": "#number"
+    },
+    {
+      "include": "#label"
+    },
+    {
+      "include": "#statement"
+    },
+    {
+      "include": "#function"
+    },
+    {
+      "include": "#class"
+    },
+    {
+      "include": "#operator"
+    },
+    {
+      "include": "#variable"
+    }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.line.rem.kmbasic",
+      "match": "(?i)\\bREM\\b.*$"
+    },
+    "string": {
+      "name": "string.quoted.double.kmbasic",
+      "begin": "\"",
+      "end": "\""
+    },
+    "number": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.kmbasic",
+          "match": "(\\$[0-9A-Fa-f]+|0[xX][0-9A-Fa-f]+)"
+        },
+        {
+          "name": "constant.numeric.float.kmbasic",
+          "match": "\\b[0-9]+\\.[0-9]*([eE][-+]?[0-9]+)?\\b|\\b[0-9]+[eE][-+]?[0-9]+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.kmbasic",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+    "label": {
+      "patterns": [
+        {
+          "match": "(?i)^\\s*(LABEL)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.kmbasic"
+            },
+            "2": {
+              "name": "entity.name.function.kmbasic"
+            }
+          }
+        },
+        {
+          "match": "(?i)^\\s*(METHOD)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.kmbasic"
+            },
+            "2": {
+              "name": "entity.name.function.kmbasic"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.line.kmbasic",
+          "match": "^\\s*[0-9]+(?=\\s)"
+        }
+      ]
+    },
+    "statement": {
+      "name": "keyword.control.kmbasic",
+      "match": "(?i)\\b(OPTION CLASSCODE|INTERRUPT STOP|I2CWRITEDATA|SPIWRITEDATA|I2CREADDATA|SPIREADDATA|SPISWAPDATA|CIRCLEFILL|TCPRECEIVE|USEGRAPHIC|CORETIMER|DRAWCOUNT|INTERRUPT|SERIALOUT|TCPCLIENT|TCPSERVER|TLSCLIENT|CONTINUE|GPALETTE|I2CWRITE|PLAYWAVE|SPIWRITE|TCPCLOSE|USECLASS|USETIMER|BGCOLOR|BOXFILL|DELAYMS|DELAYUS|FREMOVE|FRENAME|PALETTE|RESTORE|SETTIME|TCPSEND|ALIGN4|CIRCLE|CURSOR|DELETE|ELSEIF|FCLOSE|FPRINT|GCOLOR|GPRINT|METHOD|OPTION|POKE16|POKE32|PUTBMP|RETURN|SCROLL|SERIAL|SETDIR|STATIC|SYSTEM|USEPCG|USEVAR|BREAK|CDATA|CLEAR|COLOR|ENDIF|FIELD|FOPEN|FPUTC|FSEEK|GOSUB|LABEL|MKDIR|MUSIC|OUT16|OUT8H|OUT8L|POINT|PRINT|SOUND|TIMER|WHILE|WIDTH|CALL|DATA|ELSE|EXEC|FGET|FILE|FPUT|GCLS|GOTO|IDLE|LINE|LOOP|NEXT|POKE|PSET|WAIT|WEND|CLS|DIM|END|FOR|I2C|LET|NTP|OUT|PCG|PWM|REM|SPI|VAR|DO|IF)\\b"
+    },
+    "function": {
+      "name": "support.function.kmbasic",
+      "match": "(?i)\\b(DATAADDRESS|FUNCADDRESS|CORETIMER|DRAWCOUNT|IFCONFIG\\$|STRFTIME\\$|TCPACCEPT|TCPSTATUS|GETTIME\\$|I2CERROR|KEYRIGHT|KEYSTART|PLAYWAVE|SERIALIN|SPRINTF\\$|WIFIERR\\$|FINPUT\\$|GETDIR\\$|I2CREAD|KEYDOWN|KEYFIRE|KEYLEFT|READKEY|SPIREAD|STRNCMP|SYSTEM\\$|WIFIERR|ANALOG|ATAN2#|FFIND\\$|FINFO\\$|FLOAT#|FLOAT\\$|FLOOR#|GOSUB#|GOSUB\\$|INPUT\\$|LOG10#|PEEK16|PEEK32|STRCMP|SYSTEM|ACOS#|ARGS#|ARGS\\$|ASIN#|ATAN#|CEIL#|COSH#|CREAD|FABS#|FGETC|FINFO|FMOD#|GOSUB|INKEY|KEYUP|MODF#|MUSIC|READ\\$|SINH#|SQRT#|TANH#|TIMER|TVRAM|ARGS|CHR\\$|COS#|DEC\\$|DNS\\$|EXP#|FEOF|FLEN|HEX\\$|IN16|IN8H|IN8L|KEYS|LOG#|NOT#|PEEK|POW#|READ|RND#|SIN#|TAN#|VAL#|WAVE|ABS|ASC|INT|LEN|NEW|NOT|PI#|RND|SGN|VAL|A\\$|IN)(?=\\s*[($#]|\\b)"
+    },
+    "class": {
+      "name": "support.class.kmbasic",
+      "match": "(?i)\\b(CPUCLOCK|CSD816D|PLAYAVI|QMI8658|TBUTTON|TSC2046|WS2812B|BIGNUM|BUTTON|CKNJ12|CKNJ16|CLDHEX|CRDINI|CSWTIF|FFTLIB|QRCODE|REGEXP|STRDIM|STRING|C24LC|CIOEX|CKNJ8|GEN3O|HTTPD|IR_RX|IR_TX|STRD2|JSON|WGET|MA)\\b"
+    },
+    "operator": {
+      "patterns": [
+        {
+          "name": "keyword.operator.logical.kmbasic",
+          "match": "(?i)\\b(AND|OR|XOR)\\b"
+        },
+        {
+          "name": "keyword.operator.kmbasic",
+          "match": "(<<|>>|<=|>=|!=|[-+*/%<>=&])"
+        }
+      ]
+    },
+    "variable": {
+      "patterns": [
+        {
+          "name": "variable.other.string.kmbasic",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\$"
+        },
+        {
+          "name": "variable.other.float.kmbasic",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*#"
+        },
+        {
+          "name": "variable.other.kmbasic",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        }
+      ]
+    }
+  }
+}

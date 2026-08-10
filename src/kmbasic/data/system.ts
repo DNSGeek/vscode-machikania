@@ -1,0 +1,391 @@
+import { KMBasicKeywordList } from "../keywordTypes";
+
+/** SYSTEM access, object orientation, networking and the real-time clock. */
+export const SYSTEM_KEYWORDS: KMBasicKeywordList = [
+  // ------------------------------------------------------------------ SYSTEM
+  {
+    name: "SYSTEM",
+    kind: "statement",
+    category: "System",
+    valueType: "none",
+    syntax: ["SYSTEM x,y", "SYSTEM(x)", "SYSTEM$(x)"],
+    summary:
+      "Reads or writes a system value. The statement form sets, the function forms read as an integer or a string.",
+    alsoA: "function",
+    notes: [
+      "0-3 (string): platform name, MachiKania version, BASIC version, running HEX file.",
+      "4-7: CPU clock, build config, BASIC RAM in KB, configured user age.",
+      "20-30: display width and height, colours, cursor positions, LCD rotation.",
+      "40-43: PS/2 keyboard state.",
+      "50, 51: CPU clock in Hz and CPU voltage.",
+      "55-58: SPI baud rates for the MMC and the LCD.",
+      "100-105: pointers to variables, RNG seed, TVRAM, font, PCG font, graphics RAM.",
+      "200, 201: display on/off, board LED on/off.",
+      "250-252: calloc, malloc and free.",
+    ],
+    example: [
+      "SYSTEM 51,12       REM 1.15 V",
+      "SYSTEM 50,200000000",
+      "PRINT SYSTEM(4)",
+    ].join("\n"),
+    snippet: "SYSTEM ${1:50},${2:0}",
+  },
+  {
+    name: "SYSTEM(",
+    kind: "function",
+    category: "System",
+    valueType: "integer",
+    syntax: ["SYSTEM(x)", "SYSTEM(250,x)", "SYSTEM(251,x)"],
+    summary: "Reads a system value as an integer.",
+    notes: [
+      "SYSTEM(4) CPU clock in Hz, SYSTEM(6) BASIC RAM in KB, SYSTEM(7) user age.",
+      "SYSTEM(20) and SYSTEM(21) text width and height in characters.",
+      "SYSTEM(22) and SYSTEM(23) graphics width and height.",
+      "SYSTEM(30) LCD orientation in degrees, since KM-1512.",
+      "SYSTEM(250,x) calloc and SYSTEM(251,x) malloc return an address.",
+    ],
+    example: [
+      "IF SYSTEM(7)<18 THEN",
+      '  PRINT "You must be at least 18 to run this."',
+      "  END",
+      "ENDIF",
+    ].join("\n"),
+    snippet: "SYSTEM(${1:4})",
+  },
+  {
+    name: "SYSTEM$",
+    kind: "function",
+    category: "System",
+    valueType: "string",
+    syntax: ["SYSTEM$(x)"],
+    summary:
+      "Reads a system value as a string. 0 is the platform name, 1 the MachiKania version, 2 the BASIC version, 3 the running HEX file.",
+    example: ['PRINT SYSTEM$(0);" ";SYSTEM$(1)'].join("\n"),
+    snippet: "SYSTEM$(${1:0})",
+  },
+
+  // ----------------------------------------------------------------- classes
+  {
+    name: "USECLASS",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: ["USECLASS x[,y[,z[, ...]]]"],
+    summary:
+      "Declares the classes this file uses. A class name is up to 8 alphanumeric characters.",
+    notes: [
+      "The class is loaded from classname.BAS in the current directory, or from \\LIB\\classname\\classname.BAS.",
+      "Subdirectories PICO2, TYPEPU and TYPEPU/PICO2 let one library ship per-target versions.",
+    ],
+    example: ["USECLASS WGET", 'PRINT WGET::FORSTRING$("https://machikania.net/")'].join(
+      "\n",
+    ),
+    snippet: "USECLASS ${1:CLASSNAME}",
+  },
+  {
+    name: "NEW",
+    kind: "function",
+    category: "Classes",
+    valueType: "integer",
+    syntax: ["NEW(x[,y[,z[, ...]]])"],
+    summary:
+      "Creates an object of class x and returns a pointer to it. Extra arguments go to the INIT constructor.",
+    example: ["USECLASS CLASS1", "A=NEW(CLASS1,123,456)"].join("\n"),
+    snippet: "NEW(${1:CLASSNAME})",
+  },
+  {
+    name: "DELETE",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: ["DELETE x[,y[,z[, ...]]]"],
+    summary: "Destroys an object, an array or a string, freeing its memory.",
+    notes: [
+      "There is no destructor. String and array fields inside an object are not freed by DELETE, so free them in a method first.",
+    ],
+    example: [
+      "O=NEW(CLASS1)",
+      "O.DSTRCT()",
+      "DELETE O",
+    ].join("\n"),
+    snippet: "DELETE ${1:O}",
+  },
+  {
+    name: "CALL",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: ["CALL x"],
+    summary:
+      "Calls an object method when the return value is not needed. CALL itself may be omitted.",
+    example: ["CALL A.TEST4(123,456)"].join("\n"),
+    snippet: "CALL ${1:obj}.${2:METHOD}()",
+  },
+  {
+    name: "FIELD",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: [
+      "FIELD [PUBLIC] x[,y[,z[, ...]]]",
+      "FIELD PRIVATE x[,y[,z[, ...]]]",
+    ],
+    summary:
+      "Declares instance fields in a class file. PUBLIC is the default. Add $ for a string field, () for an array.",
+    example: [
+      "FIELD PUBLIC TEST1,TEST2",
+      "FIELD PRIVATE TEST3",
+    ].join("\n"),
+    snippet: "FIELD ${1|PUBLIC,PRIVATE|} ${2:NAME}",
+  },
+  {
+    name: "STATIC",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: [
+      "STATIC [PUBLIC] x[,y[,z[, ...]]]",
+      "STATIC PRIVATE x[,y[,z[, ...]]]",
+    ],
+    summary:
+      "Declares a class level variable. A public one is reached from outside as CLASSNAME::VAR.",
+    notes: ["STATIC PRIVATE is equivalent to USEVAR."],
+    example: [
+      "STATIC PUBLIC TEST7",
+      "REM from elsewhere:",
+      "CLASS1::TEST7=123",
+    ].join("\n"),
+    snippet: "STATIC ${1|PUBLIC,PRIVATE|} ${2:NAME}",
+  },
+  {
+    name: "METHOD",
+    kind: "statement",
+    category: "Classes",
+    valueType: "none",
+    syntax: ["METHOD x", "METHOD INIT"],
+    summary:
+      "Declares a method. All methods are public. METHOD INIT is the constructor and runs when NEW creates the object.",
+    notes: [
+      "Read arguments with ARGS(). ARGS(-2) is a pointer to the object itself.",
+      "Call another method of the same class with GOSUB, not a static call.",
+      "Any method can also be called statically as CLASSNAME::METHOD().",
+    ],
+    example: [
+      "METHOD INIT",
+      "  IF ARGS(0)=2 THEN",
+      "    TEST1=ARGS(1)",
+      "    TEST2=ARGS(2)",
+      "  ENDIF",
+      "RETURN",
+    ].join("\n"),
+    snippet: "METHOD ${1:NAME}\n\t$0\nRETURN",
+  },
+
+  // ------------------------------------------------------------------- clock
+  {
+    name: "SETTIME",
+    kind: "statement",
+    category: "Real-time clock",
+    valueType: "none",
+    syntax: ["SETTIME x$"],
+    summary: "Sets the clock from an ISO-8601 string such as 2026-08-09T13:00:00.",
+    example: ['SETTIME "2026-08-09T13:00:00"'].join("\n"),
+    snippet: 'SETTIME "${1:2026-01-01T00:00:00}"',
+  },
+  {
+    name: "GETTIME$",
+    kind: "function",
+    category: "Real-time clock",
+    valueType: "string",
+    syntax: ["GETTIME$([x$[,y]])"],
+    summary:
+      "The current time as an ISO-8601 string, or a conversion of the time given in x$.",
+    example: ["PRINT GETTIME$()"].join("\n"),
+    snippet: "GETTIME$()",
+  },
+  {
+    name: "STRFTIME$",
+    kind: "function",
+    category: "Real-time clock",
+    valueType: "string",
+    syntax: ["STRFTIME$(x$[,y$])"],
+    summary:
+      "Formats the current time, or the time in y$, using a strftime style format string.",
+    example: ['PRINT STRFTIME$("%Y-%m-%d %H:%M")'].join("\n"),
+    snippet: 'STRFTIME$("${1:%Y-%m-%d}")',
+  },
+  {
+    name: "NTP",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["NTP", "NTP()"],
+    summary:
+      "Sets the real-time clock from an NTP server. The function form returns an error number, 0 for success.",
+    alsoA: "function",
+    notes: ["The server comes from NTPSERVER= in MACHIKAP.INI."],
+    variants: ["WiFi"],
+    snippet: "NTP",
+  },
+
+  // ----------------------------------------------------------------- network
+  {
+    name: "TCPCLIENT",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TCPCLIENT x$[,y]", "TCPCLIENT(x$[,y])"],
+    summary:
+      "Opens a TCP connection to host x$ on port y, default 80. The function form returns an error number.",
+    alsoA: "function",
+    variants: ["WiFi"],
+    example: [
+      't$="GET / HTTP/1.0"+CHR$(13)+CHR$(10)+CHR$(13)+CHR$(10)',
+      "TCPSEND t$",
+      'TCPCLIENT "machikania.net"',
+    ].join("\n"),
+    snippet: 'TCPCLIENT "${1:host}"',
+  },
+  {
+    name: "TLSCLIENT",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TLSCLIENT x$[,y]", "TLSCLIENT(x$[,y])"],
+    summary:
+      "Opens a TLS connection to host x$ on port y, default 443. Otherwise identical to TCPCLIENT.",
+    alsoA: "function",
+    notes: [
+      "MachiKania does not verify CA certificates, so treat an https connection as only slightly safer than plain http.",
+    ],
+    variants: ["WiFi"],
+    snippet: 'TLSCLIENT "${1:host}"',
+  },
+  {
+    name: "TCPSERVER",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TCPSERVER [x[,y]]"],
+    summary:
+      "Starts a TCP server on port x, default 80. y=0 makes TCPACCEPT() fire on connect, y=1 on first data.",
+    notes: [
+      "Keep MachiKania servers on a private network. They are not hardened for the public internet.",
+    ],
+    variants: ["WiFi"],
+    snippet: "TCPSERVER ${1:80}",
+  },
+  {
+    name: "TCPACCEPT",
+    kind: "function",
+    category: "Network",
+    valueType: "integer",
+    syntax: ["TCPACCEPT()"],
+    summary:
+      "Returns the connection ID of a new client. It is returned only once, so store it.",
+    variants: ["WiFi"],
+    snippet: "TCPACCEPT()",
+  },
+  {
+    name: "TCPSEND",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TCPSEND x|x$[,y[,z]]", "TCPSEND(x|x$[,y[,z]])"],
+    summary:
+      "Sends a buffer or a string. Issued before TCPCLIENT it is sent as soon as the connection opens.",
+    alsoA: "function",
+    variants: ["WiFi"],
+    snippet: "TCPSEND ${1:t$}",
+  },
+  {
+    name: "TCPRECEIVE",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TCPRECEIVE x,y[,z]", "TCPRECEIVE(x,y[,z])"],
+    summary:
+      "Receives up to y bytes into buffer x. The function form returns the byte count.",
+    alsoA: "function",
+    variants: ["WiFi"],
+    example: [
+      "DIM B(64)",
+      "I=TCPRECEIVE(B,256)",
+    ].join("\n"),
+    snippet: "TCPRECEIVE ${1:buffer},${2:256}",
+  },
+  {
+    name: "TCPSTATUS",
+    kind: "function",
+    category: "Network",
+    valueType: "integer",
+    syntax: ["TCPSTATUS(x[,y])"],
+    summary:
+      "Connection state. x=0 gives 1 when connected, x=1 gives the number of bytes received.",
+    variants: ["WiFi"],
+    snippet: "TCPSTATUS(${1:0})",
+  },
+  {
+    name: "TCPCLOSE",
+    kind: "statement",
+    category: "Network",
+    valueType: "none",
+    syntax: ["TCPCLOSE [x]", "TCPCLOSE([x])"],
+    summary:
+      "Closes a connection by ID, or shuts down the server when no ID is given.",
+    alsoA: "function",
+    variants: ["WiFi"],
+    snippet: "TCPCLOSE",
+  },
+  {
+    name: "DNS$",
+    kind: "function",
+    category: "Network",
+    valueType: "string",
+    syntax: ["DNS$(x$)"],
+    summary: "Resolves a hostname to an IP address string.",
+    variants: ["WiFi"],
+    snippet: 'DNS$("${1:host}")',
+  },
+  {
+    name: "IFCONFIG$",
+    kind: "function",
+    category: "Network",
+    valueType: "string",
+    syntax: ["IFCONFIG$(x)"],
+    summary: "WiFi connection details as a string.",
+    notes: [
+      "0 IP address, 1 subnet mask, 2 gateway, 3 DNS server, 16 MAC address.",
+    ],
+    example: ["PRINT IFCONFIG$(0)"].join("\n"),
+    variants: ["WiFi"],
+    snippet: "IFCONFIG$(${1:0})",
+  },
+  {
+    name: "WIFIERR",
+    kind: "function",
+    category: "Network",
+    valueType: "integer",
+    syntax: ["WIFIERR()"],
+    summary: "Error number from the last WiFi operation.",
+    notes: [
+      "0 no error.",
+      "1 disconnected by the far end, which is normal for a client.",
+      "2 DNS resolution failed.",
+      "3 connection timeout.",
+      "4 no WiFi connection.",
+    ],
+    variants: ["WiFi"],
+    snippet: "WIFIERR()",
+  },
+  {
+    name: "WIFIERR$",
+    kind: "function",
+    category: "Network",
+    valueType: "string",
+    syntax: ["WIFIERR$()"],
+    summary: "Error message from the last WiFi operation.",
+    variants: ["WiFi"],
+    snippet: "WIFIERR$()",
+  },
+];
